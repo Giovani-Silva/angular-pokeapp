@@ -28,6 +28,7 @@ export class PokemonComponent implements OnInit {
 
   ngOnInit() {
     this.getSelected();
+    this.search();
     this.getPokemons();
   }
 
@@ -51,6 +52,15 @@ export class PokemonComponent implements OnInit {
   getSelected() {
     this.subscription$.add(this.selected.selectedChanged.subscribe( selected => {
       this.selection = selected;
+      this.currentPage = 1;
+      this.getPokemons();
+      })
+    );
+  }
+
+  search(){
+    this.subscription$.add(this.selected.searchBy.subscribe( searchBy => {
+      this.searchBy = searchBy;
       this.currentPage = 1;
       this.getPokemons();
       })
