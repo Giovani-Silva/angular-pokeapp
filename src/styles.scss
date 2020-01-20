@@ -1,4 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@import './scss/index.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $fontFamily;
+  font-weight: $fontThin;
+  font-weight: 300;
+  background-color: $gray-light;
+  color: $blue-dark;
+
+
+  .container {
+    width: 100%;
+    max-width:$desktop;
+    margin: 0 auto;
+  }
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
