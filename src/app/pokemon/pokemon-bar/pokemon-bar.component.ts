@@ -29,14 +29,12 @@ export class PokemonBarComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       tap( value => this.service.searchBy.emit(value)),
-      tap(console.log),
       last()
     ).subscribe();
 
   }
 
   emitSelected(event){
-    console.log(this.selected)
     this.service.selectedChanged.emit(this.selected);
     this.queryField.setValue('');
     this.service.searchBy.emit('')

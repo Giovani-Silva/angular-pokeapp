@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { tap, map, take } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 import { Pokemon } from './../../models/pokemons.model';
+import { PokemonBarService } from './pokemon-bar/pokemon-bar.service';
 import { PokemonService } from './pokemon.service';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-pokemon',
@@ -23,10 +24,10 @@ export class PokemonComponent implements OnInit {
   searchBy: string;
 
 
-  constructor(private service: PokemonService) { }
+  constructor(private service: PokemonService, private selected: PokemonBarService) { }
 
   ngOnInit() {
-    this.getPokemons();
+    this.getSelected();
     this.getPokemons();
   }
 
@@ -42,10 +43,18 @@ export class PokemonComponent implements OnInit {
           this.postsPerPage = +dados.headers.get('Page-Size');
           this.totalPosts = +dados.headers.get('Total-Count');
         } ),
-        tap(dados => { this.postsPerPage, this.totalPosts}),
         map( dados => dados.body.cards.sort(this.orderByName) ),
         take(1)
       )
+  }
+
+  getSelected() {
+    this.subscription$.add(this.selected.selectedChanged.subscribe( selected => {
+      this.selection = selected;
+      this.currentPage = 1;
+      this.getPokemons();
+      })
+    );
   }
 
 
