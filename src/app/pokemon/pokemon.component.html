@@ -1,19 +1,20 @@
 <app-pokemon-bar></app-pokemon-bar>
-<section class="container" *ngIf=" true; else loading">
+<section class="container" *ngIf="pokemons$ | async as pokemons; else loading">
   <div class="grid" >
-    <mat-card  *ngFor="let i of [].constructor(8)">
-      <a class="link-card">
+
+    <mat-card  *ngFor="let pokemon of pokemons">
+      <a class="link-card" [routerLink]="pokemon.id" [state]="{ hello: 'world' }">
 
         <div class="mat-card-img">
-          <img src="https://images.pokemontcg.io/xy1/42.png" alt="pikachu">
+          <img [src]="pokemon.imageUrl" [alt]="pokemon.name">
         </div>
 
 
         <mat-card-content>
-          <mat-card-title><span># 0000</span>Pikachu</mat-card-title>
-           <p>
+          <mat-card-title><span>#{{ pokemon.id }}</span>{{ pokemon.name }}</mat-card-title>
+           <p *ngIf="pokemon.types">
              <span>Type:</span>
-             <span class="mat-card-pills">Lightning</span>
+             <span class="mat-card-pills">{{ pokemon.types }}</span>
            </p>
         </mat-card-content>
 
@@ -22,8 +23,8 @@
 
   </div>
 
-  <mat-card-content *ngIf="false">Nenhum resultado encontrado</mat-card-content>
-  <mat-paginator *ngIf="true" [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions"
+  <mat-card-content *ngIf="!pokemons.length">Nenhum resultado encontrado</mat-card-content>
+  <mat-paginator *ngIf="pokemons.length" [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="onChangePaginator($event)" [hidePageSize]="true" [pageIndex]="currentPage-1"></mat-paginator>
 
 </section>
