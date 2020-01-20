@@ -1,6 +1,81 @@
 <section class="container">
+
   <button  (click)="back()" color="primary" mat-button *ngIf="id">
     <mat-icon aria-hidden="false" aria-label="back icon">arrow_back_ios</mat-icon>
     Back
   </button>
+
+  <mat-card *ngIf="id; else loading">
+    <div class="card-header">
+      <h2>Pikachu</h2>
+      <mat-card-subtitle class="supertypes">Pokémon</mat-card-subtitle>
+      <mat-card-subtitle># {{id}}</mat-card-subtitle>
+    </div> <!-- header  -->
+
+    <div class="card-image">
+      <img matCardImage src="https://images.pokemontcg.io/pl4/71.png" alt="pikachu">
+    </div> <!-- image  -->
+
+    <div class="card-content">
+
+      <div class="group group-type">
+        <span>type</span>
+        <div class="type">
+          <div matTooltip="type" matTooltipPosition="right" className="cost-icon lightning">
+            Lightning</div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="label-title">attacks</div>
+        <div>
+          <div class="group cost">
+            <span>cost:</span>
+            <div matTooltip="cost" matTooltipPosition="right" className="cost-icon  grass"
+              class="cost-icon"> {{ cost }} </div>
+          </div>
+          <div class="group">
+            <span>attack:</span>
+            <span>name attack</span>
+          </div>
+          <div class="group">
+            <span>description:</span>
+            <span>description attack</span>
+          </div>
+          <div class="group">
+            <span>damage:</span>
+            <span>50</span>
+          </div>
+          <hr>
+        </div>
+      </div>
+
+      <div class="group-end">
+
+        <span class="group group-type" >
+          <span>resistances</span>
+          <div class="group-type" >
+            <div matTooltip="type" matTooltipPosition="right"
+              className="cost-icon metal">Metal</div>
+            <span class="badge"> 20 </span>
+          </div>
+        </span>
+
+        <span class="group group-type">
+          <span>resistances</span>
+          <div class="group-type">
+            <div matTooltip="type" matTooltipPosition="right"
+              className="cost-icon fight">fight</div>
+            <span class="badge"> 10 </span>
+          </div>
+        </span>
+
+      </div>
+    </div> <!-- content  -->
+
+  </mat-card>
+
+  <ng-template #loading>
+    <p>carregando...</p>
+  </ng-template>
 </section>
