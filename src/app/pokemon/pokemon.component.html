@@ -1,3 +1,23 @@
 <app-pokemon-bar></app-pokemon-bar>
-<p>pokemon works!</p>
-aqui
+<section class="container">
+  <div class="grid" >
+    <mat-card  *ngFor="let i of [1,2,3,4,5]">
+      <a class="link-card">
+
+        <div class="mat-card-img">
+          <img src="https://images.pokemontcg.io/xy1/42.png" alt="pikachu">
+        </div>
+
+
+        <mat-card-content>
+          <mat-card-title><span># 0000</span>Pikachu</mat-card-title>
+           <p>
+             <span>Type:</span>
+             <span class="mat-card-pills">Lightning</span>
+           </p>
+        </mat-card-content>
+
+      </a>
+    </mat-card>
+  </div>
+</section>
