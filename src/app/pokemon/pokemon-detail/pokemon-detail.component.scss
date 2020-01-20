@@ -2,4 +2,175 @@
 .container {
   margin: 50px 5%;
   width: 90%;
+
+  @include desktop {
+    margin: 50px auto;
+    width: 100%;
+  }
+
+
+  mat-card{
+    padding: 20px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'img img'
+      'header header'
+      'content content'
+      'content content';
+
+    @include tablet {
+      grid-template-columns: 45% 1fr;
+      grid-template-rows: 115px 1fr;
+      grid-column-gap: 20px;
+      grid-template-areas:
+      'img header'
+      'img content'
+      'img content'
+      'img content';
+    }
+
+    @include desktop {
+      grid-template-columns: 45% 1fr;
+      grid-template-rows: 115px 1fr;
+      grid-column-gap: 20px;
+      grid-template-areas:
+      'img header'
+      'img content'
+      'img content'
+      'img content';
+    }
+
+
+    .card-header{
+      grid-area: header;
+
+      .pokemon-id {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: $fontBigger + 4;
+        font-weight: $fontBold;
+        color: $purple;
+        opacity: .3;
+      }
+
+      mat-card-subtitle.supertypes {
+        margin-bottom: 8px !important;
+      }
+
+    }
+
+    .card-image{
+      grid-area: img;
+      width: 100%;
+      text-align: center;
+
+      img {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+      }
+    }
+
+    .card-content{
+      grid-area: content;
+
+      .group {
+        margin-bottom: 5px;
+        &> span:first-child {
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      }
+
+      .group-end {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .cost {
+        display: flex;
+        align-items: center;
+      }
+
+      .group-type{
+        display: flex;
+        align-items: center;
+      }
+
+      .type {
+        display: inline-flex;
+        align-items: center;
+        &:first-child{
+          margin-right: 5px;
+        }
+      }
+      .cost-icon {
+        background: url(../../../assets/types_icon.png) no-repeat;
+        width: 28px;
+        height: 28px;
+        background-position: 0px 0px;
+        background-size: 150px;
+        overflow: hidden;
+        color: transparent;
+        display: inline-block;
+        &.colorless{
+          background-position: -90px -32px;
+        }
+        &.darkness{
+          background-position: -33px -32px;
+        }
+        &.dragon{
+          background-position: -116px -32px;
+        }
+        &.fairy{
+          background-position: -60px -58px;
+        }
+        &.fighting{
+          background-position: -6px -32px;
+        }
+        &.fire{
+          background-position: -33px -5px;
+        }
+        &.grass{
+          background-position: -6px -5px;
+        }
+        &.lightning{
+          background-position: -90px -5px;
+        }
+        &.metal{
+          background-position: -60px -32px;
+        }
+        &.psychic{
+          background-position: -116px -5px;
+        }
+        &.water{
+          background-position: -60px -5px;
+        }
+    }
+
+    }
+
+    .label-title {
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      border-bottom: 1px solid;
+      margin-right: 10px;
+      padding: 2px 20px 10px;
+      margin: 10px 0;
+    }
+
+    .badge {
+      background: darken($purple-dark, 20%);
+      padding: 5px 4px;
+      border-radius: 70%;
+      color: $gray-light;
+      font-size: 12px;
+      font-weight: 700;
+    }
+  }
 }
