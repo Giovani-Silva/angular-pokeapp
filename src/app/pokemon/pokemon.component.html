@@ -1,5 +1,5 @@
 <app-pokemon-bar></app-pokemon-bar>
-<section class="container" *ngIf=" false; else loading">
+<section class="container" *ngIf=" true; else loading">
   <div class="grid" >
     <mat-card  *ngFor="let i of [].constructor(8)">
       <a class="link-card">
@@ -19,7 +19,13 @@
 
       </a>
     </mat-card>
+
   </div>
+
+  <mat-card-content *ngIf="false">Nenhum resultado encontrado</mat-card-content>
+  <mat-paginator *ngIf="true" [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangePaginator($event)" [hidePageSize]="true" [pageIndex]="currentPage-1"></mat-paginator>
+
 </section>
 
 <ng-template #loading>

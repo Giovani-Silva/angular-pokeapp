@@ -5,6 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 import { PokemonComponent } from './pokemon.component';
@@ -23,7 +25,8 @@ import { PokemonRoutingModule } from './pokemon-routing.module';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    MatPaginatorModule
   ]
 })
 export class PokemonModule { }
