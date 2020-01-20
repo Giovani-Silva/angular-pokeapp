@@ -1,9 +1,9 @@
-import { PokemonService } from './../pokemon.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, debounceTime, last, tap } from 'rxjs/operators';
 
+import { PokemonService } from './../pokemon.service';
 import { PokemonBarService } from './pokemon-bar.service';
 
 @Component({

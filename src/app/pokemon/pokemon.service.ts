@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from './../../environments/environment';
-import { ListPokemon } from './../../models/pokemons.model';
+import { ListPokemon } from '../models/pokemons.model';
 
 @Injectable({
   providedIn: 'root'

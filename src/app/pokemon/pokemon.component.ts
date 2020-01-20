@@ -3,9 +3,9 @@ import { tap, map, take } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 
-import { Pokemon } from './../../models/pokemons.model';
 import { PokemonBarService } from './pokemon-bar/pokemon-bar.service';
 import { PokemonService } from './pokemon.service';
+import { Pokemon } from '../models/pokemons.model';
 
 @Component({
   selector: 'app-pokemon',
