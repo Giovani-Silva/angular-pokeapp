@@ -1,1 +1,20 @@
-<p>pokemon-bar works!</p>
+<div class="bar">
+
+  <div class="container">
+    <mat-form-field>
+      <mat-select  [(value)]="selected" (selectionChange)="emitSelected($event)">
+        <mat-option value="">All</mat-option>
+        <mat-option [value]="supertype" *ngFor="let supertype of supertypes$ | async">
+          {{supertype}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Search by name</mat-label>
+      <input matInput [formControl]="queryField">
+    </mat-form-field>
+  </div>
+
+</div>
+

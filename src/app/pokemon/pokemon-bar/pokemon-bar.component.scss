@@ -1,0 +1,23 @@
+@import '../../../scss/index.scss';
+.bar {
+  background-color: #e0e0e0;
+  &> .container {
+    background-color: #e0e0e0;
+    padding: 5px 16px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    margin: 0 auto;
+
+    @include tablet{
+      flex-direction: row;
+    }
+    @include desktop {
+      flex-direction: row;
+    }
+
+    &> mat-form-field, .mat-form-field-wrapper{
+      margin-bottom: 0;
+    }
+  }
+}
