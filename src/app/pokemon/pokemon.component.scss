@@ -79,3 +79,30 @@
 
   }
 }
+
+.content {
+
+  .mat-card-img,
+  mat-card-title,
+  mat-card-title > span,
+  mat-card-content > p{
+    position: relative;
+    background: linear-gradient(40deg, rgba(250, 250, 250, 0.5), rgba(0, 0, 0, 0.04));
+    background-color: lighten($gray-light, 10%);
+    color: transparent;
+    animation: placeHolderSwept 1s infinite linear forwards;
+  }
+
+  mat-card-title, mat-card-content > p{
+    height: 14px;
+  }
+}
+
+@keyframes placeHolderSwept {
+  0% {
+    background-position: -400px 0
+  }
+  100% {
+    background-position: 400px 0
+  }
+}

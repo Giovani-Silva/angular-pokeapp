@@ -1,7 +1,7 @@
 <app-pokemon-bar></app-pokemon-bar>
-<section class="container">
+<section class="container" *ngIf=" false; else loading">
   <div class="grid" >
-    <mat-card  *ngFor="let i of [1,2,3,4,5]">
+    <mat-card  *ngFor="let i of [].constructor(8)">
       <a class="link-card">
 
         <div class="mat-card-img">
@@ -21,3 +21,23 @@
     </mat-card>
   </div>
 </section>
+
+<ng-template #loading>
+  <div class="container content" >
+    <div class="grid" >
+
+      <mat-card *ngFor="let i of [].constructor(4)">
+
+        <div class="mat-card-img"></div>
+
+        <mat-card-content>
+          <mat-card-title><span></span></mat-card-title>
+          <p></p>
+        </mat-card-content>
+
+      </mat-card>
+    </div>
+  </div>
+</ng-template>
+
+
