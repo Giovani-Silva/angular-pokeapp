@@ -1,80 +1,81 @@
 <section class="container">
-
-  <button  (click)="back()" color="primary" mat-button *ngIf="id">
+  <button  (click)="back()" color="primary" mat-button *ngIf="pokemon?.id">
     <mat-icon aria-hidden="false" aria-label="back icon">arrow_back_ios</mat-icon>
     Back
   </button>
+  <mat-card *ngIf="pokemon?.id; else loading">
+      <div class="card-header">
+        <h2>{{pokemon?.name}}</h2>
+        <mat-card-subtitle class="supertypes">{{pokemon?.supertype}} - {{pokemon?.subtype}}</mat-card-subtitle>
+        <mat-card-subtitle># {{pokemon?.id}}</mat-card-subtitle>
+      </div>  <!-- header  -->
 
-  <mat-card *ngIf="id; else loading">
-    <div class="card-header">
-      <h2>Pikachu</h2>
-      <mat-card-subtitle class="supertypes">Pokémon</mat-card-subtitle>
-      <mat-card-subtitle># {{id}}</mat-card-subtitle>
-    </div> <!-- header  -->
+      <div class="card-image">
+        <img matCardImage [src]="pokemon?.imageUrl" [alt]="pokemon?.name">
+      </div> <!-- image  -->
 
-    <div class="card-image">
-      <img matCardImage src="https://images.pokemontcg.io/pl4/71.png" alt="pikachu">
-    </div> <!-- image  -->
+        <div class="card-content">
 
-    <div class="card-content">
+            <div *ngIf="pokemon?.text && pokemon?.supertype != 'Pokémon'" class="group">
+              <span>description</span>
+              <span>{{pokemon?.text}}</span>
+            </div>
 
-      <div class="group group-type">
-        <span>type</span>
-        <div class="type">
-          <div matTooltip="type" matTooltipPosition="right" class="cost-icon lightning"></div>
-        </div>
-      </div>
+            <div *ngIf="pokemon?.types" class="group group-type">
+              <span>type</span>
+              <div class="type" *ngFor="let type  of pokemon?.types">
+                <div [matTooltip]="type" matTooltipPosition="right" [className]="'cost-icon ' + type | lowercase">{{type | lowercase }}</div>
+              </div>
+            </div>
 
-      <div class="group">
-        <div class="label-title">attacks</div>
-        <div>
-          <div class="group cost">
-            <span>cost:</span>
-            <div matTooltip="cost" matTooltipPosition="right" class="cost-icon lightning"></div>
-            <div matTooltip="cost" matTooltipPosition="right" class="cost-icon colorless"></div>
-          </div>
-          <div class="group">
-            <span>attack:</span>
-            <span>Mega Shot</span>
-          </div>
-          <div class="group">
-            <span>description:</span>
-            <span>description attack</span>
-          </div>
-          <div class="group">
-            <span>damage:</span>
-            <span>50</span>
-          </div>
-          <hr>
-        </div>
-      </div>
+            <div class="group">
+              <div class="label-title" *ngIf="pokemon?.attacks">attacks</div>
+              <div *ngFor="let attack of pokemon?.attacks">
+                <div class="group cost">
+                  <span>cost:</span>
+                  <div [matTooltip]="cost" matTooltipPosition="right" [className]="'cost-icon ' + cost.toLowerCase()"
+                    class="cost-icon" *ngFor="let cost of attack?.cost"> {{ cost }} </div>
+                </div>
+                <div class="group">
+                  <span>attack:</span>
+                  <span>{{attack?.name}}</span>
+                </div>
+                <div class="group">
+                  <span>description:</span>
+                  <span>{{attack?.text || ' --- '}}</span>
+                </div>
+                <div class="group">
+                  <span>damage:</span>
+                  <span>{{attack?.damage || 0}}</span>
+                </div>
+                <hr>
+              </div>
+            </div>
 
-      <div class="group-end">
+            <div class="group-end">
 
-        <span class="group group-type" >
-          <span>resistances</span>
-          <div class="group-type" >
-            <div matTooltip="type" matTooltipPosition="right"
-              class="cost-icon fighting"></div>
-            <span class="badge"> -20 </span>
-          </div>
-        </span>
+              <span class="group group-type" *ngIf="pokemon?.resistances">
+                <span>resistances</span>
+                <div class="group-type" *ngFor="let resistance of pokemon?.resistances">
+                <div [matTooltip]="resistance?.type" matTooltipPosition="right" [className]="'cost-icon ' + resistance?.type | lowercase">{{resistance?.type | lowercase}}</div>
+                <span class="badge"> {{resistance?.value}}</span>
+                </div>
+              </span>
 
-        <span class="group group-type">
-          <span>weaknesses</span>
-          <div class="group-type">
-            <div matTooltip="type" matTooltipPosition="right"
-              class="cost-icon metal"></div>
-            <span class="badge"> +10 </span>
-          </div>
-        </span>
+              <span class="group group-type" *ngIf="pokemon?.weaknesses">
+                <span>weaknesses</span>
+                <div class="group-type" *ngFor="let weakness of pokemon?.weaknesses">
+                <div [matTooltip]="weakness?.type" matTooltipPosition="right" [className]="'cost-icon ' + weakness?.type | lowercase">{{weakness?.type | lowercase}}</div>
+                <span class="badge"> {{weakness?.value}}</span>
+                </div>
+              </span>
 
-      </div>
-    </div> <!-- content  -->
+            </div>
+        </div> <!-- content  -->
 
   </mat-card>
-
   <ng-template #loading>
     <p>carregando...</p>
   </ng-template>
+
 </section>

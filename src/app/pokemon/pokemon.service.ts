@@ -21,4 +21,11 @@ export class PokemonService {
     }
     return this.http.get<ListPokemon>(`${environment.api.pokemontcg.uri}/cards`, {params,  observe: 'response'});
   }
+
+
+  getById(id: string) {
+    const params = { id }
+    return this.http.get<any>(`${environment.api.pokemontcg.uri}/cards`, { params });
+  }
+
 }
