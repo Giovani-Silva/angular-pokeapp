@@ -9,6 +9,7 @@ export interface Pokemon {
   nationalPokedexNumber: number;
   imageUrl: string;
   imageUrlHiRes: string;
+  text?: string;
   types: string[];
   supertype: string;
   subtype: string;
@@ -21,8 +22,23 @@ export interface Pokemon {
   series: string;
   set: string;
   setCode: string;
-  attacks: object[];
-  weaknesses: object[];
+  attacks: Attacks[];
+  resistances: ResistanceAndWekness;
+  weaknesses: ResistanceAndWekness;
+}
+
+
+export interface Attacks {
+  cost: string[];
+  name: string;
+  text: string;
+  damage: string;
+  convertedEnergyCost: number;
+}
+
+export interface ResistanceAndWekness {
+  cost: string;
+  value: string;
 }
 
 export interface ListPokemon {
