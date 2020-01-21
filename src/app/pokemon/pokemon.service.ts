@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from './../../environments/environment';
-import { ListPokemon } from '../models/pokemons.model';
+import { ParamsRoute, ListPokemon } from './../models/pokemons.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
+
+  paramsRoute: ParamsRoute;
 
   constructor(private http: HttpClient) { }
 
@@ -18,14 +20,23 @@ export class PokemonService {
       pageSize: `${pageSize}`,
       page: `${page}`,
       name,
-    }
+    };
     return this.http.get<ListPokemon>(`${environment.api.pokemontcg.uri}/cards`, {params,  observe: 'response'});
   }
 
 
   getById(id: string) {
-    const params = { id }
+    const params = { id };
     return this.http.get<any>(`${environment.api.pokemontcg.uri}/cards`, { params });
+  }
+
+
+  setParams(selection: string, currentPage: number, searchBy: string, totalPosts: number) {
+    this.paramsRoute = { selection, currentPage, searchBy, totalPosts };
+  }
+
+  getParams() {
+    return this.paramsRoute;
   }
 
 }

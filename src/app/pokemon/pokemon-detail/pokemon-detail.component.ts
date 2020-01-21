@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 
 import { PokemonService } from './../pokemon.service';
-import { Pokemon } from '../../models/pokemons.model';
+import { Pokemon, ParamsRoute } from './../../models/pokemons.model';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -14,6 +14,7 @@ export class PokemonDetailComponent implements OnInit {
 
   id: string;
   pokemon: Pokemon;
+  params: ParamsRoute;
 
   constructor(private router: Router, private route: ActivatedRoute, private service: PokemonService) { }
 
@@ -24,9 +25,16 @@ export class PokemonDetailComponent implements OnInit {
     .getById(this.id)
     .pipe(map(data => data.cards))
     .subscribe(data => this.pokemon = data[0]);
+
+    this.params = this.service.getParams();
   }
 
   back() {
+
+    if (!!this.params) {
+      sessionStorage.setItem('page', JSON.stringify(this.params));
+    }
+
     this.router.navigate(['/']);
   }
 

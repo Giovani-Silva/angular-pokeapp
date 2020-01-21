@@ -17,7 +17,7 @@ export class PokemonComponent implements OnInit {
   pokemons$: Observable<Pokemon[]>;
   subscription$: Subscription = new Subscription();
   totalPosts: number;
-  postsPerPage: number = 12;
+  postsPerPage = 12;
   currentPage = 1;
   pageSizeOptions = [2, 10, 20, 40, 80, 100];
   selection = 'Pokémon';
@@ -34,6 +34,7 @@ export class PokemonComponent implements OnInit {
 
   onChangePaginator(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
+    this.setParamRoute();
     this.getPokemons();
   }
 
@@ -43,31 +44,37 @@ export class PokemonComponent implements OnInit {
         tap(dados => {
           this.postsPerPage = +dados.headers.get('Page-Size');
           this.totalPosts = +dados.headers.get('Total-Count');
+          this.setParamRoute();
         } ),
         map( dados => dados.body.cards.sort(this.orderByName) ),
         take(1)
-      )
+      );
   }
 
   getSelected() {
     this.subscription$.add(this.selected.selectedChanged.subscribe( selected => {
       this.selection = selected;
       this.currentPage = 1;
+      this.setParamRoute();
       this.getPokemons();
       })
     );
   }
 
-  search(){
+  search() {
     this.subscription$.add(this.selected.searchBy.subscribe( searchBy => {
       this.searchBy = searchBy;
       this.currentPage = 1;
+      this.setParamRoute();
       this.getPokemons();
       })
     );
   }
 
 
+  setParamRoute() {
+    this.service.setParams(this.selection, this.currentPage, this.searchBy,  this.totalPosts);
+  }
 
 
   private orderByName(a, b) {
