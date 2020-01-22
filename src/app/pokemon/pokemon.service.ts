@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 import { environment } from './../../environments/environment';
 import { ParamsRoute, ListPokemon } from './../models/pokemons.model';
@@ -37,6 +38,14 @@ export class PokemonService {
 
   getParams() {
     return this.paramsRoute;
+  }
+
+  saveCardsSession(cards) {
+    sessionStorage.setItem('cards', JSON.stringify(cards));
+  }
+
+  getCardsSession() {
+    return of( JSON.parse(sessionStorage.getItem('cards')) );
   }
 
 }

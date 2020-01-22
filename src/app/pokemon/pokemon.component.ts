@@ -39,20 +39,23 @@ export class PokemonComponent implements OnInit {
   }
 
   getPokemons() {
-    this.pokemons$ = this.service.list(this.selection, this.postsPerPage, this.currentPage, this.searchBy)
-      .pipe(
-        tap(dados => {
-          this.postsPerPage = +dados.headers.get('Page-Size');
-          this.totalPosts = +dados.headers.get('Total-Count');
-          this.setParamRoute();
-        } ),
-        map( dados => dados.body.cards.sort(this.orderByName) ),
-        take(1)
+    if ( !this.getStorage() ) {
+      this.pokemons$ = this.service.list(this.selection, this.postsPerPage, this.currentPage, this.searchBy)
+        .pipe(
+          tap(dados => {
+            this.postsPerPage = +dados.headers.get('Page-Size');
+            this.totalPosts = +dados.headers.get('Total-Count');
+            this.setParamRoute();
+          } ),
+          tap( dados => {this.service.saveCardsSession(dados.body.cards.sort(this.orderByName)); }),
+          map( dados => dados.body.cards.sort(this.orderByName) ),
+          take(1)
       );
+    }
   }
 
   getSelected() {
-    this.subscription$.add(this.selected.selectedChanged.subscribe( selected => {
+    this.subscription$.add(this.selected.selectedChanged.subscribe( (selected: string) => {
       this.selection = selected;
       this.currentPage = 1;
       this.setParamRoute();
@@ -62,13 +65,27 @@ export class PokemonComponent implements OnInit {
   }
 
   search() {
-    this.subscription$.add(this.selected.searchBy.subscribe( searchBy => {
+    this.subscription$.add(this.selected.searchBy.subscribe( (searchBy: string) => {
       this.searchBy = searchBy;
       this.currentPage = 1;
       this.setParamRoute();
       this.getPokemons();
       })
     );
+  }
+
+  getStorage() {
+    const data = JSON.parse(sessionStorage.getItem('page'));
+    if ( data ) {
+      sessionStorage.removeItem('page');
+      this.pokemons$ = this.service.getCardsSession();
+      this.selection = data.selection;
+      this.currentPage = data.currentPage;
+      this.totalPosts = data.totalPosts;
+      this.searchBy = data.searchBy;
+      return true ;
+    }
+    return false;
   }
 
 
