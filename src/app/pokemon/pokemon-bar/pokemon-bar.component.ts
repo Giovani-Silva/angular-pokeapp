@@ -13,16 +13,18 @@ import { PokemonBarService } from './pokemon-bar.service';
 })
 export class PokemonBarComponent implements OnInit {
 
-  selected = 'Pokémon';
+  selected: string;
   supertypes$: Observable<any[]>;
   queryField$: Observable<any>;
   queryField = new FormControl;
 
-  constructor(private service: PokemonBarService) { }
+  constructor(private service: PokemonBarService, private servicePokemon: PokemonService) { }
 
   ngOnInit() {
     this.supertypes$ = this.service.list();
 
+    this.selected = this.getSelectSession();
+    this.queryField.setValue( this.getSearchSession() ) ;
     this.service.selectedChanged.emit(this.selected);
 
     this.queryField.valueChanges.pipe(
@@ -38,6 +40,20 @@ export class PokemonBarComponent implements OnInit {
     this.service.selectedChanged.emit(this.selected);
     this.queryField.setValue('');
     this.service.searchBy.emit('')
+  }
+
+  getSelectSession() {
+    if ( !!this.servicePokemon.getParams() ){
+      return this.servicePokemon.getParams().selection;
+    }
+    return 'Pokémon';
+  }
+
+  getSearchSession() {
+    if ( !!this.servicePokemon.getParams() ){
+      return this.servicePokemon.getParams().searchBy;
+    }
+    return '';
   }
 
 
