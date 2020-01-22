@@ -29,7 +29,11 @@ export class PokemonComponent implements OnInit {
   ngOnInit() {
     this.getSelected();
     this.search();
-    this.getPokemons();
+    this.getStorage();
+  }
+
+  ngOnDestroy(){
+    this.subscription$.unsubscribe();
   }
 
   onChangePaginator(event: PageEvent) {
@@ -55,21 +59,30 @@ export class PokemonComponent implements OnInit {
   }
 
   getSelected() {
-    this.subscription$.add(this.selected.selectedChanged.subscribe( (selected: string) => {
+    let storage = this.getStorage();
+    this.subscription$.add(this.selected.selectedChanged.subscribe( selected => {
       this.selection = selected;
-      this.currentPage = 1;
+      this.currentPage = storage ? this.currentPage : 1;
       this.setParamRoute();
-      this.getPokemons();
+      if( !storage ) {
+        this.getPokemons();
+      }
+      storage = false;
       })
     );
   }
 
   search() {
-    this.subscription$.add(this.selected.searchBy.subscribe( (searchBy: string) => {
+    let storage = this.getStorage();
+    this.subscription$.add(this.selected.searchBy.subscribe( searchBy => {
       this.searchBy = searchBy;
-      this.currentPage = 1;
+      this.currentPage = storage ? this.currentPage : 1;
+      storage = false;
       this.setParamRoute();
-      this.getPokemons();
+      if( !storage ) {
+        this.getPokemons();
+      }
+      storage = false;
       })
     );
   }
