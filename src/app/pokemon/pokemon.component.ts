@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { tap, map, take } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
@@ -12,7 +12,7 @@ import { Pokemon } from '../models/pokemons.model';
   templateUrl: './pokemon.component.html',
   styleUrls: ['./pokemon.component.scss']
 })
-export class PokemonComponent implements OnInit {
+export class PokemonComponent implements OnInit, OnDestroy {
 
   pokemons$: Observable<Pokemon[]>;
   subscription$: Subscription = new Subscription();

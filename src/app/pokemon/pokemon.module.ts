@@ -10,8 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-
-
 import { PokemonComponent } from './pokemon.component';
 import { PokemonBarComponent } from './pokemon-bar/pokemon-bar.component';
 import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
