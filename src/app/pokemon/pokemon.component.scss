@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  max-width: 1070px;
+  max-width: $desktop;
   margin: 50px auto 0;
   padding: 15px;
 
@@ -10,8 +10,8 @@
     display: grid;
     grid-gap: 10px;
     grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
-    align-content: center;
-    justify-content: center;
+    justify-items: center;
+    align-items: center;
 
 
     mat-card{
@@ -20,7 +20,7 @@
       margin: 20px auto;
       padding: 0;
       border: 1px solid $gray-light;
-      box-shadow: 0 1px 4px 0 rgba(0,0,0,.14) !important;
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,.14);
 
 
       .link-card {
@@ -60,9 +60,10 @@
           display: flex;
           align-items: center;
           width: 75%;
-          font-size: 18px;
+          font-size: $fontMD;
           span {
-            font-size: 12px;
+            font-size: $fontDefault - 0.1rem;
+            color: $purple-dark;
             position: absolute;
             right: 10px;
           }
