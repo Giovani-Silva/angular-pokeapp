@@ -59,8 +59,11 @@
         mat-card-title{
           display: flex;
           align-items: center;
-          width: 75%;
-          font-size: $fontMD;
+          width: 70%;
+          font-size: $fontSM;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           span {
             font-size: $fontDefault - 0.1rem;
             color: $purple-dark;
